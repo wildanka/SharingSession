@@ -8,12 +8,15 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
+import com.example.twowaydatabindingjava.databinding.FragmentFirstBinding;
 import com.example.twowaydatabindingjava.detail.ActivityDetail;
+import com.example.twowaydatabindingjava.list.ListActivity;
 
 public class FirstFragment extends Fragment {
-    private Button button;
+    private FragmentFirstBinding binding;
 
     @Override
     public View onCreateView(
@@ -21,18 +24,24 @@ public class FirstFragment extends Fragment {
             Bundle savedInstanceState
     ) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_first, container, false);
-        button = v.findViewById(R.id.button_first);
-        return v;
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_first, container, false);
+        return binding.getRoot();
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        button.setOnClickListener(new View.OnClickListener() {
+        binding.btnDetail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent in = new Intent(getActivity(), ActivityDetail.class);
+                startActivity(in);
+            }
+        });
+        binding.btnList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent in = new Intent(getActivity(), ListActivity.class);
                 startActivity(in);
             }
         });
